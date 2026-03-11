@@ -5,7 +5,7 @@ A Claude Code skill that sets the vibe for your coding sessions. Curates ambient
 ## Install
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/vibeskill.git ~/.claude/skills/vibe/
+git clone https://github.com/onchaindom/vibeskill.git ~/.claude/skills/vibe/
 ```
 
 That's it. The repo root *is* the skill directory.
