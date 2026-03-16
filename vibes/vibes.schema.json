@@ -18,7 +18,7 @@
       "minItems": 1,
       "items": {
         "type": "object",
-        "required": ["title", "url", "platform", "duration_minutes", "tags"],
+        "required": ["title", "url", "platform", "duration_minutes"],
         "properties": {
           "title": {
             "type": "string",
@@ -44,11 +44,6 @@
             "minimum": 0,
             "description": "Duration in minutes. null for livestreams."
           },
-          "tags": {
-            "type": "array",
-            "items": { "type": "string" },
-            "description": "Mood/genre tags for filtering (e.g. 'lofi', 'jazz', 'ambient')"
-          },
           "text_content": {
             "type": "string",
             "description": "Body text for 'text' platform entries (poem, excerpt, quote)"
@@ -57,6 +52,14 @@
             "type": "string",
             "description": "Author/source attribution for text entries"
           }
+        },
+        "if": {
+          "not": {
+            "properties": { "platform": { "const": "text" } }
+          }
+        },
+        "then": {
+          "required": ["embed_url"]
         }
       }
     }

@@ -1,6 +1,6 @@
 ---
 name: vibe
-description: Set the vibe for a coding session. Curates ambient music and opens a lounge page with embedded players and a countdown timer. Use when the user wants vibes, focus music, background tunes, or before any task estimated over 10 minutes.
+description: Set the vibe for a coding session. Curates ambient music and opens a lounge page with embedded players and a countdown timer. Use when the user wants vibes, focus music, or background tunes.
 ---
 
 # vibe
@@ -10,8 +10,7 @@ You are the vibe curator. When triggered, you set up ambient music for the user'
 ## When to trigger
 
 - User explicitly asks for vibes, music, focus tunes, background audio
-- User says something like "set the mood", "I need some tunes", "put on some music"
-- Before any substantial task you estimate will take over 10 minutes
+- User says something like "I need some tunes", "put on some music"
 - User invokes `/vibe` directly
 
 ## Duration estimation
@@ -31,31 +30,25 @@ Use your judgment — these are rough guides. When in doubt, round up.
 ## Steps
 
 1. **Estimate duration** — based on the task at hand (or the user's request)
-2. **Determine mood** — pick a mood tag if the user hints at one (e.g., "something jazzy" → `jazz`). Otherwise, omit mood for a random mix.
-3. **Run the script** — execute:
+2. **Run the script** — execute:
 
 ```bash
-python3 <skill_directory>/scripts/vibe_lounge.py --duration <MINUTES> --vibes-file <skill_directory>/vibes/default.json [--mood <TAG>]
+python3 <skill_directory>/scripts/vibe_lounge.py --duration <MINUTES> --vibes-file <skill_directory>/vibes/default.json
 ```
 
 Replace `<skill_directory>` with the actual path to this skill's directory (where this SKILL.md lives). **Run this in the background** — the script starts a local HTTP server (required for YouTube embeds) and stays running. It will:
 - Load the playlist
-- Filter by mood (if specified)
 - Select media to cover the session duration
 - Generate an HTML lounge page
 - Serve it on a random localhost port and open it in the browser
 - Print the file path and server URL to stderr
 
-4. **Confirm to the user** — keep it brief and chill:
+3. **Confirm to the user** — keep it brief and chill:
    - "Lounge is open. Let's get to work."
    - "Vibes are set. {duration} minutes on the clock."
    - "Music's on. Here we go."
 
-5. **Proceed with the task** — don't wait, get to work immediately after opening the lounge.
-
-## Mood tags
-
-Available mood tags in the default playlist: `soul`, `funk`, `indie`, `dreampop`, `lo-fi`, `art-pop`, `ethereal`, `visual`, `fashion`, `inspiration`, `reading`, `poetry`, `work`, `talk`, `culture`, `web3`
+4. **Proceed with the task** — don't wait, get to work immediately after opening the lounge.
 
 ## Custom vibes
 
@@ -70,14 +63,9 @@ Be chill. Be brief. No fanfare. You're a DJ who knows when to press play and get
 ## Examples
 
 **User asks for vibes explicitly:**
-> User: "put on some music, something jazzy"
+> User: "put on some music"
 
-Estimate isn't needed — user just wants tunes. Run with a default duration (30 min) and mood `jazz`.
-
-**Before a big task:**
-> User: "refactor the authentication module to use JWT"
-
-This is a medium-to-large task (~45 min). Run the script with `--duration 45`, then proceed with the refactor.
+Estimate isn't needed — user just wants tunes. Run with a default duration (30 min).
 
 **Quick task, no vibes needed:**
 > User: "fix the typo on line 42"

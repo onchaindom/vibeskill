@@ -20,7 +20,6 @@
 ### Convention
 
 - Name your playlist files descriptively: `synthwave.json`, `classical-focus.json`, `rain-sounds.json`
-- Use tags consistently — check existing playlists for common tags before inventing new ones
 - Keep entries to real, working URLs — test your embeds before sharing
 
 ## Future ideas

@@ -8,13 +8,15 @@
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   body {
-    background: #ffffff;
-    color: #413C3A;
+    background: #1a1a1a url("{{BACKGROUND_IMAGE}}") no-repeat center center fixed;
+    background-size: cover;
+    color: #D4CFCC;
     font-family: 'SF Mono', Menlo, monospace;
     font-size: 11px;
     font-weight: 300;
     line-height: 1.4;
-    min-height: 100vh;
+    height: 100vh;
+    overflow: hidden;
     display: flex;
     justify-content: center;
     padding: 40px 20px;
@@ -30,12 +32,13 @@
     max-width: 640px;
     display: flex;
     flex-direction: column;
-    min-height: calc(100vh - 80px);
+    height: calc(100vh - 80px);
+    overflow: hidden;
   }
 
   .divider {
     color: #D4CFCC;
-    margin: 16px 0;
+    margin: 8px 0;
     overflow: hidden;
     white-space: nowrap;
   }
@@ -56,8 +59,8 @@
   }
 
   .track-title {
-    color: #413C3A;
-    margin-bottom: 16px;
+    color: #D4CFCC;
+    margin-bottom: 4px;
   }
 
   .track-title .tree-branch {
@@ -65,7 +68,7 @@
   }
 
   .track-title .source-link {
-    color: #A09A98;
+    color: #D4CFCC;
     text-decoration: none;
     margin-left: 6px;
   }
@@ -75,53 +78,53 @@
   }
 
   .embed-container {
-    margin: 16px 0;
+    margin: 8px 0;
+    flex: 3;
+    min-height: 0;
+    overflow: hidden;
   }
 
   .embed-container iframe {
     width: 100%;
+    height: 100%;
     display: block;
     border: none;
   }
 
-  /* Per-platform iframe heights */
-  .embed-container .embed-youtube { height: 360px; }
-  .embed-container .embed-spotify { height: 352px; border-radius: 12px; }
-  .embed-container .embed-soundcloud { height: 300px; }
-  .embed-container .embed-apple_music { height: 450px; border-radius: 10px; }
-  .embed-container .embed-arena { height: 500px; }
-  .embed-container .embed-bandcamp { height: 470px; }
-  .embed-container .embed-mixcloud { height: 400px; }
-  .embed-container .embed-vimeo { height: 360px; }
+  /* Per-platform border radius */
+  .embed-container .embed-spotify { border-radius: 12px; }
+  .embed-container .embed-apple_music { border-radius: 10px; }
 
   /* Text content (poems, excerpts) */
   .text-content {
     padding: 32px 24px;
-    border: 1px solid #D4CFCC;
-    min-height: 200px;
+    background: #000000;
+    border: 1px solid #333;
+    height: 100%;
+    overflow-y: auto;
   }
 
   .text-body {
     font-size: 13px;
     line-height: 1.8;
-    color: #413C3A;
+    color: #ffffff;
     white-space: pre-wrap;
   }
 
   .text-author {
     margin-top: 16px;
-    color: #A09A98;
+    color: #D4CFCC;
     font-style: italic;
   }
 
   .unmute-hint {
-    color: #A09A98;
+    color: #D4CFCC;
     margin-top: 8px;
     text-align: center;
   }
 
   .timer-section {
-    margin: 24px 0;
+    margin: 12px 0;
   }
 
   .progress-row {
@@ -137,7 +140,7 @@
   }
 
   .progress-time {
-    color: #A09A98;
+    color: #D4CFCC;
     font-variant-numeric: tabular-nums;
     min-width: 48px;
     text-align: right;
@@ -150,13 +153,24 @@
   }
 
   .playlist-header {
-    color: #A09A98;
-    margin-bottom: 12px;
+    color: #D4CFCC;
+    margin-bottom: 6px;
     text-align: center;
+  }
+
+  .playlist-section {
+    flex: 1;
+    min-height: 60px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
   }
 
   .playlist {
     list-style: none;
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
   }
 
   .playlist li {
@@ -164,7 +178,7 @@
     cursor: pointer;
     display: flex;
     align-items: center;
-    color: #A09A98;
+    color: #D4CFCC;
   }
 
   .playlist li:hover {
@@ -172,7 +186,7 @@
   }
 
   .playlist li.active {
-    color: #413C3A;
+    color: #D4CFCC;
   }
 
   .playlist li.active:hover {
@@ -217,7 +231,7 @@
   }
 
   .playlist li.active .track-duration {
-    color: #A09A98;
+    color: #D4CFCC;
   }
 
   .footer {
@@ -233,11 +247,6 @@
 
   .footer a:hover {
     color: #DE7557;
-  }
-
-  .mood-tag {
-    color: #A09A98;
-    margin-top: 12px;
   }
 
   .header-box {
@@ -266,7 +275,7 @@
   }
 
   .header-box .headphone {
-    color: #413C3A;
+    color: #D4CFCC;
   }
 
   .header-box .title {
@@ -274,7 +283,7 @@
   }
 
   .header-box .meta {
-    color: #A09A98;
+    color: #D4CFCC;
   }
 
   .info-section {
@@ -282,13 +291,13 @@
   }
 
   .folder-path {
-    color: #A09A98;
+    color: #D4CFCC;
     margin-bottom: 4px;
   }
 
   .welcome-msg {
-    color: #A09A98;
-    margin-bottom: 16px;
+    color: #D4CFCC;
+    margin-bottom: 8px;
   }
 
   .autoplay-hint {
@@ -300,7 +309,7 @@
   }
 
   .autoplay-hint .autoplay-shortcut {
-    color: #A09A98;
+    color: #D4CFCC;
   }
 </style>
 </head>
@@ -338,13 +347,10 @@
 
   <div class="embed-container" id="embedContainer"></div>
 
-  <div class="divider">────────────────────────────────────────────────────────────────</div>
-
-  <div class="playlist-header">─── playlist ───</div>
-  <ul class="playlist" id="playlist"></ul>
-  <div class="autoplay-hint"><span class="autoplay-on">▶▶ autoplay on</span> <span class="autoplay-shortcut">(shift+tab for next)</span></div>
-
-  <div class="mood-tag" id="moodTag"></div>
+  <div class="playlist-section">
+    <ul class="playlist" id="playlist"></ul>
+    <div class="autoplay-hint"><span class="autoplay-on">▶▶ autoplay on</span> <span class="autoplay-shortcut">(shift+tab for next)</span></div>
+  </div>
 
   <div class="footer"><a href="https://github.com/onchaindom/vibeskill">Github</a> · Made by <a href="https://x.com/onchaindom">@onchaindom</a> for <a href="https://www.cacheatelier.work/">Cache Atelier</a>.</div>
 </div>
@@ -354,7 +360,6 @@
   // --- Data ---
   const vibes = {{VIBES_JSON}};
   const totalMinutes = {{DURATION_MINUTES}};
-  const mood = "{{MOOD}}";
 
   // --- State ---
   let currentIndex = 0;
@@ -376,12 +381,6 @@
   const progressTimeEl = document.getElementById('progressTime');
   const timerDoneEl = document.getElementById('timerDone');
   const playlistEl = document.getElementById('playlist');
-  const moodTagEl = document.getElementById('moodTag');
-
-  // --- Mood ---
-  if (mood) {
-    moodTagEl.textContent = 'mood: ' + mood;
-  }
 
   // --- Progress bar ---
   function renderProgress() {
@@ -416,7 +415,7 @@
     let track = vibes[index];
 
     // Update now-playing title
-    let titleHtml = '<span class="tree-branch">└── </span>' + track.title.replace(/&/g,'&amp;').replace(/</g,'&lt;');
+    let titleHtml = '<span class="tree-branch">└── </span>' + track.title.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
     if (track.url && track.platform !== 'text') {
       titleHtml += ' <a class="source-link" href="' + track.url.replace(/&/g,'&amp;') + '" target="_blank" rel="noopener">(source)</a>';
     }
@@ -430,8 +429,8 @@
     if (track.platform === 'text') {
       // Render text content inline (no iframe)
       containerEl.innerHTML = '<div class="text-content">'
-        + '<div class="text-body">' + (track.text_content || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/\n/g, '<br>') + '</div>'
-        + (track.text_author ? '<div class="text-author">— ' + track.text_author.replace(/&/g,'&amp;').replace(/</g,'&lt;') + '</div>' : '')
+        + '<div class="text-body">' + (track.text_content || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g, '<br>') + '</div>'
+        + (track.text_author ? '<div class="text-author">— ' + track.text_author.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;') + '</div>' : '')
         + '</div>';
     } else {
       // Iframe-based platforms

@@ -1,6 +1,6 @@
 # vibe
 
-The Claude Code skill that lets you actually vibe while Claude works. Curate a playlist of media via links and Claude creates a locally hosted lounge experience for you tailored to the estimated work time of Claude's session. 
+The Claude Code skill that lets you actually vibe while Claude works. Curate a playlist of media via links and Claude creates a locally hosted lounge experience for you tailored to the estimated work time of Claude's session.
 
 ## Install
 
@@ -21,11 +21,9 @@ In Claude Code:
 Or just ask naturally:
 
 ```
-can you spin up the vibe lounge for me while you work?
-if that's going to take a while, let me vibe in the meantime
+put on some music
+I need some focus tunes
 ```
-
-Claude will also auto-trigger before substantial tasks (estimated 10+ minutes).
 
 ## How it works
 
@@ -49,8 +47,7 @@ Create a JSON file in `vibes/` following the schema in `vibes/vibes.schema.json`
       "url": "https://www.youtube.com/watch?v=...",
       "embed_url": "https://www.youtube.com/embed/...",
       "platform": "youtube",
-      "duration_minutes": null,
-      "tags": ["lofi", "chill"]
+      "duration_minutes": null
     }
   ]
 }
@@ -69,6 +66,22 @@ This project uses GitHub's fork network for sharing:
 
 See `references/community.md` for more details.
 
+## Manual usage
+
+```bash
+python3 scripts/vibe_lounge.py --duration 30 --vibes-file vibes/default.json
+```
+
+Options:
+- `--duration` — session length in minutes (default: 30)
+- `--vibes-file` — path to a vibes JSON file (repeatable)
+- `--output` — output HTML path (default: `/tmp/vibe-lounge.html`)
+
+## Requirements
+
+- Python 3.7+
+- A web browser
+- Claude Code (for the skill integration)
 
 ## License
 

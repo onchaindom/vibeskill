@@ -2,6 +2,7 @@
 """Generate a vibe lounge HTML page and open it in the browser."""
 
 import argparse
+import base64
 import json
 import random
 import signal
@@ -16,6 +17,7 @@ from pathlib import Path
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 TEMPLATE_PATH = SCRIPT_DIR.parent / "assets" / "lounge_template.html"
+IMAGE_PATH = SCRIPT_DIR.parent / "lounge.png"
 
 
 def load_vibes(paths):
@@ -34,17 +36,6 @@ def load_vibes(paths):
     return entries
 
 
-def filter_by_mood(entries, mood):
-    """Filter entries by mood tag. Falls back to all entries if no matches."""
-    if not mood:
-        return entries
-    filtered = [e for e in entries if mood.lower() in [t.lower() for t in e.get("tags", [])]]
-    if not filtered:
-        print(f"warning: no entries match mood '{mood}', using all entries", file=sys.stderr)
-        return entries
-    return filtered
-
-
 def select_media(entries, duration):
     """Select media to cover the duration.
 
@@ -54,26 +45,26 @@ def select_media(entries, duration):
     if len(entries) <= 10:
         return list(entries)
 
-    selected_set = set()
+    selected_indices = set()
 
     # Always include untimed / browsable entries
-    for e in entries:
+    for i, e in enumerate(entries):
         if e.get("duration_minutes") is None:
-            selected_set.add(id(e))
+            selected_indices.add(i)
 
     # Greedy-fill timed content to cover duration
     if duration:
         covered = 0
-        for e in entries:
+        for i, e in enumerate(entries):
             if e.get("duration_minutes") is None:
                 continue
             if covered >= duration:
                 break
-            selected_set.add(id(e))
+            selected_indices.add(i)
             covered += e["duration_minutes"]
 
     # Preserve original order from the JSON
-    selected = [e for e in entries if id(e) in selected_set]
+    selected = [e for i, e in enumerate(entries) if i in selected_indices]
 
     if not selected and entries:
         selected = entries[:3]
@@ -81,7 +72,17 @@ def select_media(entries, duration):
     return selected
 
 
-def generate(vibes_json, duration, mood, working_dir, output_path):
+def load_background_image():
+    """Base64-encode the lounge background image."""
+    if not IMAGE_PATH.exists():
+        return ""
+
+    data = IMAGE_PATH.read_bytes()
+    b64 = base64.b64encode(data).decode("ascii")
+    return f"data:image/png;base64,{b64}"
+
+
+def generate(vibes_json, duration, working_dir, output_path):
     """Read template, substitute placeholders, write output."""
     if not TEMPLATE_PATH.exists():
         print(f"error: template not found at {TEMPLATE_PATH}", file=sys.stderr)
@@ -90,11 +91,20 @@ def generate(vibes_json, duration, mood, working_dir, output_path):
     template = TEMPLATE_PATH.read_text(encoding="utf-8")
     now = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
 
-    html = template.replace("{{VIBES_JSON}}", json.dumps(vibes_json))
+    safe_vibes = json.dumps(vibes_json).replace("</", "<\\/")
+    safe_dir = (working_dir
+                .replace("&", "&amp;")
+                .replace("<", "&lt;")
+                .replace(">", "&gt;")
+                .replace('"', "&quot;"))
+
+    bg_image = load_background_image()
+
+    html = template.replace("{{VIBES_JSON}}", safe_vibes)
     html = html.replace("{{DURATION_MINUTES}}", str(duration))
-    html = html.replace("{{MOOD}}", mood or "")
-    html = html.replace("{{WORKING_DIR}}", working_dir)
+    html = html.replace("{{WORKING_DIR}}", safe_dir)
     html = html.replace("{{GENERATED_AT}}", now)
+    html = html.replace("{{BACKGROUND_IMAGE}}", bg_image)
 
     output = Path(output_path)
     output.write_text(html, encoding="utf-8")
@@ -114,12 +124,6 @@ def main():
         action="append",
         dest="vibes_files",
         help="Path to a vibes JSON file (repeatable)",
-    )
-    parser.add_argument(
-        "--mood",
-        type=str,
-        default=None,
-        help="Filter by mood tag (e.g. lofi, jazz, ambient)",
     )
     parser.add_argument(
         "--working-dir",
@@ -146,7 +150,6 @@ def main():
         print("error: no vibes entries found", file=sys.stderr)
         sys.exit(1)
 
-    entries = filter_by_mood(entries, args.mood)
     selected = select_media(entries, args.duration)
 
     # Resolve working directory
@@ -161,7 +164,7 @@ def main():
             working_dir = cwd
 
     # Generate
-    output = generate(selected, args.duration, args.mood, working_dir, args.output)
+    output = generate(selected, args.duration, working_dir, args.output)
     print(str(output))
 
     # Serve via localhost (YouTube embeds require http://, not file://)
