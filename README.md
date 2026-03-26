@@ -7,7 +7,7 @@ The Claude Code plugin that lets you actually vibe while Claude works. Curate a 
 Add the marketplace and install the plugin:
 
 ```
-/plugin marketplace add Cache-Atelier/vibeskill
+/plugin marketplace add Cache-Atelier/plugins
 /plugin install vibe@cache-atelier
 ```
 

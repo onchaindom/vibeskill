@@ -15,8 +15,8 @@
       "author": {
         "name": "onchaindom"
       },
-      "homepage": "https://github.com/Cache-Atelier/vibeskill",
-      "repository": "https://github.com/Cache-Atelier/vibeskill",
+      "homepage": "https://github.com/Cache-Atelier/plugins",
+      "repository": "https://github.com/Cache-Atelier/plugins",
       "license": "MIT",
       "keywords": ["music", "vibes", "lounge", "ambient", "focus"],
       "category": "productivity"
