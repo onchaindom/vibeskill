@@ -7,8 +7,8 @@ The Claude Code plugin that lets you actually vibe while Claude works. Curate a 
 Add the marketplace and install the plugin:
 
 ```
-/plugin marketplace add onchaindom/vibeskill
-/plugin install vibe@onchaindom-plugins
+/plugin marketplace add Cache-Atelier/vibeskill
+/plugin install vibe@cache-atelier
 ```
 
 ## Usage
