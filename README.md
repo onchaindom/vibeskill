@@ -14,31 +14,9 @@ Claude Code plugins by [Cache Atelier](https://www.cacheatelier.work/) — vibes
 
 ## Plugins
 
-| Plugin | Description |
-|--------|-------------|
-| `vibe` | Curates ambient music and opens a lounge page with embedded players and a countdown timer |
-
-## Usage
-
-```shell
-/vibe
-```
-
-Or just ask naturally:
-
-```
-put on some music
-I need some focus tunes
-```
-
-## Contributing
-
-Add your own playlists:
-
-1. Fork this repo
-2. Create a JSON file in `plugins/vibe/vibes/` following `plugins/vibe/vibes/vibes.schema.json`
-3. Push to your fork
-4. Others discover your vibes through the fork network
+| Plugin | Repo | Description |
+|--------|------|-------------|
+| [`vibe`](https://github.com/Cache-Atelier/vibe) | `Cache-Atelier/vibe` | Ambient music lounge — embedded players, countdown timer, dark theme |
 
 ## License
 

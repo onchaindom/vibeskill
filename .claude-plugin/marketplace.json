@@ -9,14 +9,17 @@
   "plugins": [
     {
       "name": "vibe",
-      "source": "./plugins/vibe",
-      "description": "Curates ambient music and opens a lounge page with embedded players and a countdown timer. Use when you want vibes, focus music, or background tunes.",
+      "source": {
+        "source": "github",
+        "repo": "Cache-Atelier/vibe"
+      },
+      "description": "Ambient music lounge for coding sessions — embedded players, countdown timer, dark theme.",
       "version": "1.0.0",
       "author": {
-        "name": "onchaindom"
+        "name": "Cache Atelier"
       },
-      "homepage": "https://github.com/Cache-Atelier/plugins",
-      "repository": "https://github.com/Cache-Atelier/plugins",
+      "homepage": "https://github.com/Cache-Atelier/vibe",
+      "repository": "https://github.com/Cache-Atelier/vibe",
       "license": "MIT",
       "keywords": ["music", "vibes", "lounge", "ambient", "focus"],
       "category": "productivity"
